@@ -22,7 +22,7 @@ All of your plugin's code can go into this file or other files that you import.
 
 **2. Create an index.ts file that exports a function called load**
 
-TypeDoc is looking for a function named `load` to load your plugin. So you should define one in your module's
+TypeDoc is looking for a function called `load` to load your plugin. So you should define one in your module's
 main entry point - `index.ts` in this example. The function could be as simple as this:
 
 ```typescript
@@ -46,6 +46,7 @@ The `Converter` and the `Renderer` emit events during their work.
 The plugin can register itself for events of the `Converter` and the `Renderer` to modify the output.
 
 Please take a look at the TypeDoc API for detailed information: https://typedoc.org/api/
+
 Any more questions? Please ask them on Gitter here: https://gitter.im/TypeStrong/typedoc
 
 ### License
