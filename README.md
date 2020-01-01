@@ -16,7 +16,7 @@ After installing the module you can use (import) its classes and use them in you
 
 **1. Create a plugin class just like ExamplePlugin**
 
-Your plugin class can extend the base class `TypeDocPluginBase`.
+Your plugin class can extend the base class `PluginBase`.
 You can define your options and subscribe to the necessary events of TypeDoc just like the `ExamplePlugin` class does.
 All of your plugin's code can go into this file or other files that you import.
 
