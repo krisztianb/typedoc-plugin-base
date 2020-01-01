@@ -1,10 +1,10 @@
 import { Application } from "typedoc";
-import { TypeDocPluginOptionBase } from "./typedoc_plugin_option_base";
+import { PluginOptionBase } from "./plugin_option_base";
 
 /**
  * Class for a TypeDoc plugin option that has a boolean as its value.
  */
-export class TypeDocPluginBooleanOption extends TypeDocPluginOptionBase<boolean> {
+export class PluginBooleanOption extends PluginOptionBase<boolean> {
     /**
      * Initializes a new option.
      * @param nameInCommandLine Name of the command line parameter used for this option.

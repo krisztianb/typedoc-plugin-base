@@ -3,7 +3,7 @@ import { Application } from "typedoc";
 /**
  * Base class for a TypeDoc plugin.
  */
-export abstract class TypeDocPluginBase {
+export abstract class PluginBase {
     /**
      * Initializes the plugin.
      * @param typedoc The TypeDoc application.

@@ -1,12 +1,12 @@
 import { Application } from "typedoc";
-import { TypeDocPluginOptionBase } from "./typedoc_plugin_option_base";
+import { PluginOptionBase } from "./plugin_option_base";
 
 /**
  * Class for a TypeDoc plugin option that can have one value from a list of predefined values.
  * Use this class if your values are specified via an enumeration.
  * @typeparam T The enum type used for the values of this option.
  */
-export class TypeDocPluginEnumOption<T> extends TypeDocPluginOptionBase<T> {
+export class PluginEnumOption<T> extends PluginOptionBase<T> {
     /** Mapping of possible command line values to real option values. */
     protected stringToValueMap: Map<string, T>;
 

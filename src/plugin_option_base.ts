@@ -4,7 +4,7 @@ import { Application } from "typedoc";
  * Abstract base class for a TypeDoc plugin option.
  * @typeparam T The type of the value for this option.
  */
-export abstract class TypeDocPluginOptionBase<T> {
+export abstract class PluginOptionBase<T> {
     /** Name of the command line parameter used for this option. */
     protected nameInCommandLine: string;
 

@@ -1,10 +1,10 @@
 import { Application } from "typedoc";
-import { TypeDocPluginOptionBase } from "./typedoc_plugin_option_base";
+import { PluginOptionBase } from "./plugin_option_base";
 
 /**
  * Class for a TypeDoc plugin option that has a number as its value.
  */
-export class TypeDocPluginNumberOption extends TypeDocPluginOptionBase<number> {
+export class PluginNumberOption extends PluginOptionBase<number> {
     /** The lowest allowed value. */
     protected minValue: number;
 

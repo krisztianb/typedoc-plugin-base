@@ -1,11 +1,11 @@
 import { Application } from "typedoc";
 import { Context, Converter } from "typedoc/dist/lib/converter";
 import { PageEvent, RendererEvent } from "typedoc/dist/lib/output/events";
-import { TypeDocPluginBase } from "./typedoc_plugin_base";
-import { TypeDocPluginBooleanOption } from "./typedoc_plugin_boolean_option";
-import { TypeDocPluginEnumOption } from "./typedoc_plugin_enum_option";
-import { TypeDocPluginNumberOption } from "./typedoc_plugin_number_option";
-import { TypeDocPluginStringOption } from "./typedoc_plugin_string_option";
+import { PluginBase } from "./plugin_base";
+import { PluginBooleanOption } from "./plugin_boolean_option";
+import { PluginEnumOption } from "./plugin_enum_option";
+import { PluginNumberOption } from "./plugin_number_option";
+import { PluginStringOption } from "./plugin_string_option";
 
 /**
  * A simple enum used in one of the example plugin's options.
@@ -20,16 +20,16 @@ enum ExampleEnum {
 /**
  * An example TypeDoc plugin.
  */
-export class ExamplePlugin extends TypeDocPluginBase {
+export class ExamplePlugin extends PluginBase {
     /** A boolean option of this plugin. */
-    protected pluginBoolenOption = new TypeDocPluginBooleanOption(
+    protected pluginBoolenOption = new PluginBooleanOption(
         "booleanOptionNameInCommandLine",
         "A boolean that specifies something.",
         false
     );
 
     /** A number option of this plugin. */
-    protected pluginNumberOption = new TypeDocPluginNumberOption(
+    protected pluginNumberOption = new PluginNumberOption(
         "numberOptionNameInCommandLine",
         "A number that specifies something.",
         16,
@@ -38,14 +38,14 @@ export class ExamplePlugin extends TypeDocPluginBase {
     );
 
     /** A string option of this plugin. */
-    protected pluginStringOption = new TypeDocPluginStringOption(
+    protected pluginStringOption = new PluginStringOption(
         "stringOptionNameInCommandLine",
         "A string that specifies something.",
         "none"
     );
 
     /** An enum option of this plugin. */
-    protected pluginEnumOption = new TypeDocPluginEnumOption<ExampleEnum>(
+    protected pluginEnumOption = new PluginEnumOption<ExampleEnum>(
         "enumOptionNameInCommandLine",
         "A value that specifies something.",
         ExampleEnum.Top,
