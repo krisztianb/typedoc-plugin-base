@@ -7,7 +7,9 @@ import { TypeDocPluginEnumOption } from "./typedoc_plugin_enum_option";
 import { TypeDocPluginNumberOption } from "./typedoc_plugin_number_option";
 import { TypeDocPluginStringOption } from "./typedoc_plugin_string_option";
 
-/** A simple enum used in one of the example plugin's options. */
+/**
+ * A simple enum used in one of the example plugin's options.
+ */
 enum ExampleEnum {
     Top = 1,
     Right = 2,

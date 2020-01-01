@@ -2,7 +2,7 @@
 
 **An example plugin with some helper classes to simplify plugin development for typedoc.**
 
-### Installation
+## Installation
 
 This module can be installed using [npm](https://www.npmjs.com/):
 
@@ -10,7 +10,7 @@ This module can be installed using [npm](https://www.npmjs.com/):
 $ npm install typedoc-plugin-base --save-dev
 ```
 
-### Description
+## Description
 
 After installing the module you can use (import) its classes and use them in your own plugin.
 
@@ -31,7 +31,7 @@ export function load(host: PluginHost): void {
 }
 ```
 
-### TypeDoc background knowledge
+## TypeDoc background knowledge
 
 The TypeDoc `Application` uses a `Converter` to scan the source files and create a `ProjectReflection`.
 Then the `Application` uses the `Renderer` (and a `Theme`) to create the doc output from the `ProjectReflection`.
@@ -49,6 +49,6 @@ Please take a look at the TypeDoc API for detailed information: https://typedoc.
 
 Any more questions? Please ask them on Gitter here: https://gitter.im/TypeStrong/typedoc
 
-### License
+## License
 
 Internet Systems Consortium (ISC)
