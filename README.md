@@ -10,7 +10,7 @@ This module can be installed using [npm](https://www.npmjs.com/):
 $ npm install typedoc-plugin-base
 ```
 
-## Description
+## Usage
 
 After installing the module you can use (import) its classes and use them in your own plugin.
 Declaration files are also included, so that you can import classes in your TypeScript code like this:
