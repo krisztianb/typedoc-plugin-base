@@ -1,4 +1,4 @@
-import { Application } from "typedoc";
+import { Application, ParameterType } from "typedoc";
 import { PluginOptionBase } from "./plugin_option_base";
 
 /**
@@ -39,6 +39,7 @@ export class PluginNumberOption extends PluginOptionBase<number> {
     public addToApplication(typedoc: Application): void {
         // tslint:disable:object-literal-sort-keys
         typedoc.options.addDeclaration({
+            type: ParameterType.Number,
             name: this.nameInCommandLine,
             help: this.helpInCommandLine,
             defaultValue: this.defaultValue,
@@ -50,18 +51,14 @@ export class PluginNumberOption extends PluginOptionBase<number> {
      * @param typedoc The TypeDoc application.
      */
     public readValueFromApplication(typedoc: Application): void {
-        const strValueFromCommandLine = String(typedoc.options.getValue(this.nameInCommandLine));
+        const numValueFromCommandLine = typedoc.options.getValue(this.nameInCommandLine) as number;
 
-        if (strValueFromCommandLine) {
-            const numValueFromCommandLine = parseInt(strValueFromCommandLine, 10);
-
-            if (
-                !Number.isNaN(numValueFromCommandLine) &&
-                numValueFromCommandLine >= this.minValue &&
-                numValueFromCommandLine <= this.maxValue
-            ) {
-                this.value = numValueFromCommandLine;
-            }
+        if (
+            !Number.isNaN(numValueFromCommandLine) &&
+            numValueFromCommandLine >= this.minValue &&
+            numValueFromCommandLine <= this.maxValue
+        ) {
+            this.value = numValueFromCommandLine;
         }
     }
 }

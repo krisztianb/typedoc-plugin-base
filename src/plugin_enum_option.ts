@@ -1,4 +1,4 @@
-import { Application } from "typedoc";
+import { Application, ParameterType } from "typedoc";
 import { PluginOptionBase } from "./plugin_option_base";
 
 /**
@@ -33,22 +33,13 @@ export class PluginEnumOption<T> extends PluginOptionBase<T> {
      * @param typedoc The TypeDoc application.
      */
     public addToApplication(typedoc: Application): void {
-        let commandLineDefaultValue: string | undefined;
-
-        // get the default value in the command line
-        if (this.stringToValueMap) {
-            for (const [key, value] of Object.entries(this.stringToValueMap)) {
-                if (value === this.defaultValue) {
-                    commandLineDefaultValue = key;
-                }
-            }
-        }
-
         // tslint:disable:object-literal-sort-keys
         typedoc.options.addDeclaration({
+            type: ParameterType.Map,
             name: this.nameInCommandLine,
             help: this.helpInCommandLine,
-            defaultValue: commandLineDefaultValue,
+            map: this.stringToValueMap,
+            defaultValue: this.defaultValue,
         });
     }
 
@@ -57,14 +48,6 @@ export class PluginEnumOption<T> extends PluginOptionBase<T> {
      * @param typedoc The TypeDoc application.
      */
     public readValueFromApplication(typedoc: Application): void {
-        let valueFromCommandLine = String(typedoc.options.getValue(this.nameInCommandLine));
-
-        if (valueFromCommandLine) {
-            valueFromCommandLine = valueFromCommandLine.toLowerCase();
-
-            if (this.stringToValueMap.has(valueFromCommandLine)) {
-                this.value = this.stringToValueMap.get(valueFromCommandLine) ?? this.defaultValue;
-            }
-        }
+        this.value = typedoc.options.getValue(this.nameInCommandLine) as T;
     }
 }

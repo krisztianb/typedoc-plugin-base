@@ -1,4 +1,4 @@
-import { Application } from "typedoc";
+import { Application, ParameterType } from "typedoc";
 import { PluginOptionBase } from "./plugin_option_base";
 
 /**
@@ -22,6 +22,7 @@ export class PluginStringOption extends PluginOptionBase<string> {
     public addToApplication(typedoc: Application): void {
         // tslint:disable:object-literal-sort-keys
         typedoc.options.addDeclaration({
+            type: ParameterType.String,
             name: this.nameInCommandLine,
             help: this.helpInCommandLine,
             defaultValue: this.defaultValue,
@@ -33,10 +34,6 @@ export class PluginStringOption extends PluginOptionBase<string> {
      * @param typedoc The TypeDoc application.
      */
     public readValueFromApplication(typedoc: Application): void {
-        const valueFromCommandLine = String(typedoc.options.getValue(this.nameInCommandLine));
-
-        if (valueFromCommandLine) {
-            this.value = valueFromCommandLine;
-        }
+        this.value = typedoc.options.getValue(this.nameInCommandLine) as string;
     }
 }

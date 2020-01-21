@@ -12,7 +12,7 @@ $ npm install typedoc-plugin-base
 
 ## Usage
 
-After installing the module you can use (import) its classes and use them in your own plugin.
+After installing the module you can import its classes and use them in your own plugin project.
 Declaration files are also included, so that you can import classes in your TypeScript code like this:
 
 ```typescript
