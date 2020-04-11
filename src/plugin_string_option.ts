@@ -20,12 +20,11 @@ export class PluginStringOption extends PluginOptionBase<string> {
      * @param typedoc The TypeDoc application.
      */
     public addToApplication(typedoc: Application): void {
-        // tslint:disable:object-literal-sort-keys
         typedoc.options.addDeclaration({
-            type: ParameterType.String,
-            name: this.nameInCommandLine,
-            help: this.helpInCommandLine,
             defaultValue: this.defaultValue,
+            help: this.helpInCommandLine,
+            name: this.nameInCommandLine,
+            type: ParameterType.String,
         });
     }
 

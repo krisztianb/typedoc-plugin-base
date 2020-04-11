@@ -33,30 +33,12 @@ export class PluginEnumOption<T> extends PluginOptionBase<T> {
      * @param typedoc The TypeDoc application.
      */
     public addToApplication(typedoc: Application): void {
-        let commandLineDefaultValue: string | undefined;
-
-        // get the default value in the command line:
-        // If a default value is used that is not part of the possible command line values
-        // commandLineDefaultValue will be undefined.
-        if (this.stringToValueMap) {
-            for (const [key, value] of Object.entries(this.stringToValueMap)) {
-                if (value === this.defaultValue) {
-                    commandLineDefaultValue = key;
-                    break;
-                }
-            }
-        }
-
-        // NOTE:
-        // We are not using ParameterType.Map below on purpose. ParameterType.Map only allows a default value
-        // that is part of the possible value map. Otherwise an error is thrown. So we fall back to string.
-
-        // tslint:disable:object-literal-sort-keys
         typedoc.options.addDeclaration({
-            type: ParameterType.String,
-            name: this.nameInCommandLine,
+            defaultValue: this.defaultValue,
             help: this.helpInCommandLine,
-            defaultValue: commandLineDefaultValue,
+            map: this.stringToValueMap,
+            name: this.nameInCommandLine,
+            type: ParameterType.Map,
         });
     }
 
@@ -65,10 +47,6 @@ export class PluginEnumOption<T> extends PluginOptionBase<T> {
      * @param typedoc The TypeDoc application.
      */
     public readValueFromApplication(typedoc: Application): void {
-        const valueFromCommandLine = typedoc.options.getValue(this.nameInCommandLine) as string;
-
-        if (valueFromCommandLine && this.stringToValueMap.has(valueFromCommandLine)) {
-            this.value = this.stringToValueMap.get(valueFromCommandLine) ?? this.defaultValue;
-        }
+        this.value = typedoc.options.getValue(this.nameInCommandLine) as T;
     }
 }
