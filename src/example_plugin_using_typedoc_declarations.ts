@@ -1,11 +1,14 @@
-import { Application } from "typedoc";
+import {
+    Application,
+    BooleanDeclarationOption,
+    MapDeclarationOption,
+    NumberDeclarationOption,
+    ParameterType,
+    StringDeclarationOption,
+} from "typedoc";
 import { Context, Converter } from "typedoc/dist/lib/converter";
 import { PageEvent, RendererEvent } from "typedoc/dist/lib/output/events";
 import { PluginBase } from "./plugin_base";
-import { PluginBooleanOption } from "./plugin_boolean_option";
-import { PluginEnumOption } from "./plugin_enum_option";
-import { PluginNumberOption } from "./plugin_number_option";
-import { PluginStringOption } from "./plugin_string_option";
 
 /**
  * A simple enum used in one of the example plugin's options.
@@ -22,50 +25,58 @@ enum ExampleEnum {
  */
 export class ExamplePlugin extends PluginBase {
     /** A boolean option of this plugin. */
-    protected pluginBoolenOption = new PluginBooleanOption(
-        "booleanOptionNameInCommandLine",
-        "A boolean that specifies something.",
-        false
-    );
+    protected pluginBoolenOption = {
+        type: ParameterType.Boolean,
+        name: "booleanOptionNameInCommandLine",
+        help: "A boolean that specifies something.",
+        defaultValue: false,
+        value: false,
+    };
 
     /** A number option of this plugin. */
-    protected pluginNumberOption = new PluginNumberOption(
-        "numberOptionNameInCommandLine",
-        "A number that specifies something.",
-        16,
-        0,
-        256
-    );
+    protected pluginNumberOption = {
+        type: ParameterType.Number,
+        name: "numberOptionNameInCommandLine",
+        help: "A number that specifies something.",
+        defaultValue: 16,
+        minValue: 0,
+        maxValue: 256,
+        value: 16,
+    };
 
     /** A string option of this plugin. */
-    protected pluginStringOption = new PluginStringOption(
-        "stringOptionNameInCommandLine",
-        "A string that specifies something.",
-        "none"
-    );
+    protected pluginStringOption = {
+        type: ParameterType.String,
+        name: "stringOptionNameInCommandLine",
+        help: "A string that specifies something.",
+        defaultValue: "none",
+        value: "none",
+    };
 
     /** An enum option of this plugin. */
-    protected pluginEnumOption = new PluginEnumOption<ExampleEnum>(
-        "enumOptionNameInCommandLine",
-        "A value that specifies something.",
-        ExampleEnum.Top,
-        new Map([
+    protected pluginEnumOption = {
+        type: ParameterType.Map,
+        name: "enumOptionNameInCommandLine",
+        help: "A value that specifies something.",
+        defaultValue: ExampleEnum.Top,
+        map: new Map([
             ["top", ExampleEnum.Top],
             ["right", ExampleEnum.Right],
             ["bottom", ExampleEnum.Bottom],
             ["left", ExampleEnum.Left],
-        ])
-    );
+        ]),
+        value: ExampleEnum.Top,
+    };
 
     /**
      * Adds the plugin's options to the application's options.
      * @param typedoc The TypeDoc application.
      */
     protected addOptionsToApplication(typedoc: Application): void {
-        this.pluginBoolenOption.addToApplication(typedoc);
-        this.pluginNumberOption.addToApplication(typedoc);
-        this.pluginStringOption.addToApplication(typedoc);
-        this.pluginEnumOption.addToApplication(typedoc);
+        typedoc.options.addDeclaration(this.pluginBoolenOption as BooleanDeclarationOption);
+        typedoc.options.addDeclaration(this.pluginNumberOption as NumberDeclarationOption);
+        typedoc.options.addDeclaration(this.pluginStringOption as StringDeclarationOption);
+        typedoc.options.addDeclaration(this.pluginEnumOption as MapDeclarationOption<ExampleEnum>);
     }
 
     /**
@@ -102,10 +113,10 @@ export class ExamplePlugin extends PluginBase {
         const typedoc = context.converter.owner.application;
 
         // a good place to get the values for our options
-        this.pluginBoolenOption.readValueFromApplication(typedoc);
-        this.pluginNumberOption.readValueFromApplication(typedoc);
-        this.pluginStringOption.readValueFromApplication(typedoc);
-        this.pluginEnumOption.readValueFromApplication(typedoc);
+        this.pluginBoolenOption.value = typedoc.options.getValue(this.pluginBoolenOption.name) as boolean;
+        this.pluginNumberOption.value = typedoc.options.getValue(this.pluginNumberOption.name) as number;
+        this.pluginStringOption.value = typedoc.options.getValue(this.pluginStringOption.name) as string;
+        this.pluginEnumOption.value = typedoc.options.getValue(this.pluginEnumOption.name) as ExampleEnum;
     }
 
     /**

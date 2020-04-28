@@ -1,4 +1,4 @@
-import { Application, ParameterType } from "typedoc";
+import { MapDeclarationOption, ParameterType } from "typedoc";
 import { PluginOptionBase } from "./plugin_option_base";
 
 /**
@@ -29,24 +29,16 @@ export class PluginEnumOption<T> extends PluginOptionBase<T> {
     }
 
     /**
-     * Adds the option to the application's options.
-     * @param typedoc The TypeDoc application.
+     * Returns a declaration option representing the plugin option.
+     * @returns The declaration option representing the plugin option.
      */
-    public addToApplication(typedoc: Application): void {
-        typedoc.options.addDeclaration({
-            defaultValue: this.defaultValue,
-            help: this.helpInCommandLine,
-            map: this.stringToValueMap,
-            name: this.nameInCommandLine,
+    get asDeclaration(): MapDeclarationOption<T> {
+        return {
             type: ParameterType.Map,
-        });
-    }
-
-    /**
-     * Reads the value of the option from the application's options.
-     * @param typedoc The TypeDoc application.
-     */
-    public readValueFromApplication(typedoc: Application): void {
-        this.value = typedoc.options.getValue(this.nameInCommandLine) as T;
+            name: this.nameInCommandLine,
+            help: this.helpInCommandLine,
+            defaultValue: this.defaultValue,
+            map: this.stringToValueMap,
+        };
     }
 }

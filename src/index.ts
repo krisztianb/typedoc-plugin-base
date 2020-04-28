@@ -1,5 +1,5 @@
 import { PluginHost } from "typedoc/dist/lib/utils";
-import { ExamplePlugin } from "./example_plugin";
+import { ExamplePlugin } from "./example_plugin_using_plugin_classes";
 
 /**
  * Initializes the plugin.

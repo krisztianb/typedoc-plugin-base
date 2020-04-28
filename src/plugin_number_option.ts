@@ -1,4 +1,4 @@
-import { Application, ParameterType } from "typedoc";
+import { NumberDeclarationOption, ParameterType } from "typedoc";
 import { PluginOptionBase } from "./plugin_option_base";
 
 /**
@@ -6,10 +6,10 @@ import { PluginOptionBase } from "./plugin_option_base";
  */
 export class PluginNumberOption extends PluginOptionBase<number> {
     /** The lowest allowed value. */
-    protected minValue: number;
+    protected minValue?: number;
 
     /** The highest allowed value. */
-    protected maxValue: number;
+    protected maxValue?: number;
 
     /**
      * Initializes a new option.
@@ -23,8 +23,8 @@ export class PluginNumberOption extends PluginOptionBase<number> {
         nameInCommandLine: string,
         helpInCommandLine: string,
         defaultValue: number,
-        minValue: number,
-        maxValue: number
+        minValue?: number,
+        maxValue?: number
     ) {
         super(nameInCommandLine, helpInCommandLine, defaultValue);
 
@@ -33,31 +33,17 @@ export class PluginNumberOption extends PluginOptionBase<number> {
     }
 
     /**
-     * Adds the option to the application's options.
-     * @param typedoc The TypeDoc application.
+     * Returns a declaration option representing the plugin option.
+     * @returns The declaration option representing the plugin option.
      */
-    public addToApplication(typedoc: Application): void {
-        typedoc.options.addDeclaration({
-            defaultValue: this.defaultValue,
-            help: this.helpInCommandLine,
-            name: this.nameInCommandLine,
+    get asDeclaration(): NumberDeclarationOption {
+        return {
             type: ParameterType.Number,
-        });
-    }
-
-    /**
-     * Reads the value of the option from the application's options.
-     * @param typedoc The TypeDoc application.
-     */
-    public readValueFromApplication(typedoc: Application): void {
-        const numValueFromCommandLine = typedoc.options.getValue(this.nameInCommandLine) as number;
-
-        if (
-            !Number.isNaN(numValueFromCommandLine) &&
-            numValueFromCommandLine >= this.minValue &&
-            numValueFromCommandLine <= this.maxValue
-        ) {
-            this.value = numValueFromCommandLine;
-        }
+            name: this.nameInCommandLine,
+            help: this.helpInCommandLine,
+            defaultValue: this.defaultValue,
+            minValue: this.minValue,
+            maxValue: this.maxValue,
+        };
     }
 }

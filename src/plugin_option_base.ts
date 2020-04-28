@@ -1,4 +1,4 @@
-import { Application } from "typedoc";
+import { DeclarationOption } from "typedoc";
 
 /**
  * Abstract base class for a TypeDoc plugin option.
@@ -15,15 +15,7 @@ export abstract class PluginOptionBase<T> {
     protected defaultValue: T;
 
     /** Current value of the option. */
-    protected value: T;
-
-    /**
-     * Returns the value of the options.
-     * @returns The option's value.
-     */
-    get val(): T {
-        return this.value;
-    }
+    public value: T;
 
     /**
      * Initializes a new option.
@@ -41,14 +33,16 @@ export abstract class PluginOptionBase<T> {
     }
 
     /**
-     * Adds the option to the application's options.
-     * @param typedoc The TypeDoc application.
+     * Returns the name of the plugin option.
+     * @returns The name of the plugin option.
      */
-    public abstract addToApplication(typedoc: Application): void;
+    get name(): string {
+        return this.nameInCommandLine;
+    }
 
     /**
-     * Reads the value of the option from the application's options.
-     * @param typedoc The TypeDoc application.
+     * Returns a declaration option representing the plugin option.
+     * @returns The declaration option representing the plugin option.
      */
-    public abstract readValueFromApplication(typedoc: Application): void;
+    abstract get asDeclaration(): DeclarationOption;
 }
