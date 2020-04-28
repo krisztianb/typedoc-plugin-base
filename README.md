@@ -23,7 +23,7 @@ export function load(host: PluginHost): void {
 
 ## Installation (deprecated)
 
-Former versions of this project can be installed using NPM [npm](https://www.npmjs.com/):
+Former versions of this project can be installed using [npm](https://www.npmjs.com/package/typedoc-plugin-base):
 
 ```sh
 $ npm install typedoc-plugin-base
