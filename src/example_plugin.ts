@@ -8,7 +8,6 @@ import {
 } from "typedoc";
 import { Context, Converter } from "typedoc/dist/lib/converter";
 import { PageEvent, RendererEvent } from "typedoc/dist/lib/output/events";
-import { PluginBase } from "./plugin_base";
 
 /**
  * A simple enum used in one of the example plugin's options.
@@ -23,7 +22,7 @@ enum ExampleEnum {
 /**
  * An example TypeDoc plugin.
  */
-export class ExamplePlugin extends PluginBase {
+export class ExamplePlugin {
     /** A boolean option of this plugin. */
     protected pluginBoolenOption = {
         type: ParameterType.Boolean,
@@ -67,6 +66,15 @@ export class ExamplePlugin extends PluginBase {
         ]),
         value: ExampleEnum.Top,
     };
+
+    /**
+     * Initializes the plugin.
+     * @param typedoc The TypeDoc application.
+     */
+    public initialize(typedoc: Application): void {
+        this.addOptionsToApplication(typedoc);
+        this.subscribeToApplicationEvents(typedoc);
+    }
 
     /**
      * Adds the plugin's options to the application's options.
